@@ -12,9 +12,9 @@ import com.example.offline.screens.StyleProfileScreen
 import com.example.offline.screens.LookBookScreen
 
 object AppRoutes {
-    const val Cover = "cover"
-    const val Profile = "profile/{lookbookName}/{collection}"
-    const val Lookbook = "lookbook/{lookbookName}/{collection}/{silhouette}/{layering}/{palette}"
+    const val COVER = "cover"
+    const val PROFILE = "profile/{lookbookName}/{collection}"
+    const val LOOKBOOK = "lookbook/{lookbookName}/{collection}/{silhouette}/{layering}/{palette}"
 
     fun profile(lookbookName: String, collection: String): String {
         return "profile/${Uri.encode(lookbookName)}/${Uri.encode(collection)}"
@@ -29,11 +29,11 @@ object AppRoutes {
 fun AppNav(){
     val navController = rememberNavController()
     NavHost(
-        navController = navController, startDestination = AppRoutes.Cover
+        navController = navController, startDestination = AppRoutes.COVER
     ) {
         //screen 1
         composable(
-            AppRoutes.Cover
+            AppRoutes.COVER
         )
         {
             CoverScreen(
@@ -48,7 +48,7 @@ fun AppNav(){
         }
         //screen 2
         composable(
-            route = AppRoutes.Profile, arguments = listOf(
+            route = AppRoutes.PROFILE, arguments = listOf(
                 navArgument("lookbookName"){
                     type = NavType.StringType
                 },
@@ -76,7 +76,7 @@ fun AppNav(){
 
         // screen 3
         composable(
-            route = AppRoutes.Lookbook, arguments = listOf(
+            route = AppRoutes.LOOKBOOK, arguments = listOf(
                 navArgument("lookbookName"){
                     type = NavType.StringType
                 },
