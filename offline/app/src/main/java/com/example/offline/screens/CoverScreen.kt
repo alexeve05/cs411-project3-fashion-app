@@ -1,6 +1,5 @@
 package com.example.offline.screens
-import android.R
-import android.view.RoundedCorner
+
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -34,27 +33,20 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.paint
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import java.util.function.IntConsumer
-import kotlin.coroutines.Continuation
 
 private val ink = Color(0xFF171717)
 private val paper = Color(0xFFE8E5DF)
 private val concrete = Color(0xFF92918D)
 private val burgundy = Color(0xFF9D3034)
+private val lightGray = Color(0xFFBDB9B1)
 
 @Composable
-fun CoverScreen(
-    onContinue: (String, String) -> Unit
-) {
+fun CoverScreen(onContinue: (String, String) -> Unit) {
     var lookbookName by rememberSaveable { mutableStateOf("") }
     var selectedCollection by rememberSaveable { mutableStateOf("mens") }
     Surface(
@@ -80,14 +72,14 @@ fun CoverScreen(
                 ) {
                     Text(
                         text = "independent style journal",
-                        fontSize = 10.sp,
+                        fontSize = 12.sp,
                         fontWeight = FontWeight.Bold,
                         color = ink,
-                        letterSpacing = 1.sp
+                        letterSpacing = 0.5.sp
                     )
                     Text(
                         text = "issue 001 / 2026",
-                        fontSize = 10.sp,
+                        fontSize = 12.sp,
                         color = concrete
                     )
                 } //end row
@@ -111,17 +103,17 @@ fun CoverScreen(
                 Spacer(modifier = Modifier.height(12.dp))
                 Text(
                     text = "OFFLINE.",
-                    fontSize = 38.sp,
+                    fontSize = 45.sp,
                     fontWeight = FontWeight.Black,
                     color = ink,
                     letterSpacing = (-1).sp
                 )
                 Text(
                     text = "your personal street style edit",
-                    fontSize = 10.sp,
+                    fontSize = 12.sp,
                     fontWeight = FontWeight.Medium,
                     color = concrete,
-                    letterSpacing = 2.sp
+                    letterSpacing = 1.5.sp
                 )
                 Spacer(modifier = Modifier.height(28.dp))
                 Surface(
@@ -131,37 +123,29 @@ fun CoverScreen(
                 ) {
                     Column(modifier = Modifier.padding(22.dp)) {
                         Text(
-                            text = "find your",
+                            text = "find your uniform.",
                             fontWeight = FontWeight.Black,
-                            fontSize = 30.sp,
+                            fontSize = 28.sp,
                             color = paper,
-                            letterSpacing = 1.sp
+                            maxLines = 1
                         )
+                        Spacer(modifier = Modifier.height(10.dp))
                         Text(
-                            text = "uniform.",
-                            fontSize = 34.sp,
-                            fontWeight = FontWeight.Light,
-                            color = paper,
-                            letterSpacing = (-1).sp
-                        )
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(
-                            text = "a curated lookbook, bult around your style.",
-                            fontSize = 13.sp,
-                            color = concrete
+                            text = "a curated lookbook, built around your style.",
+                            fontSize = 14.sp,
+                            color = lightGray
                         )
                     } //end column
                 } //end surface
                 Spacer(modifier = Modifier.height(28.dp))
                 Text(
-                    text = "01 / NAME YOUR COLLECTION",
+                    text = "NAME YOUR COLLECTION",
                     modifier = Modifier.fillMaxWidth(),
-                    fontSize = 11.sp,
+                    fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
                     color = ink,
                     letterSpacing = 1.sp
                 )
-                Spacer(modifier = Modifier.height(8.dp))
                 OutlinedTextField(
                     value = lookbookName,
                     onValueChange = { lookbookName = it },
@@ -181,14 +165,14 @@ fun CoverScreen(
                 )
                 Spacer(modifier = Modifier.height(24.dp))
                 Text(
-                    text = "02 / CHOOSE YOUR COLLECTION",
+                    text = "CHOOSE YOUR COLLECTION",
                     modifier = Modifier.fillMaxWidth(),
-                    fontSize = 11.sp,
+                    fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
                     color = ink,
                     letterSpacing = 1.sp
                 )
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(4.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -210,11 +194,14 @@ fun CoverScreen(
                             ) {
                                 Text(
                                     text = "MEN'S",
-                                    fontWeight = FontWeight.Bold
+                                    fontSize = 17.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = lightGray
                                 )
                                 Text(
                                     text = "COLLECTION",
-                                    fontSize = 9.sp
+                                    fontSize = 10.sp,
+                                    color = lightGray
                                 )
                             } //end column
                         } //end button
@@ -236,11 +223,12 @@ fun CoverScreen(
                             ) {
                                 Text(
                                     text = "MEN'S",
-                                    fontWeight = FontWeight.Bold
+                                    fontSize = 17.sp,
+                                    fontWeight = FontWeight.Bold,
                                 )
                                 Text(
                                     text = "COLLECTION",
-                                    fontSize = 9.sp
+                                    fontSize = 10.sp,
                                 )
                             } // end column
                         } // end outlinedButton
@@ -262,11 +250,14 @@ fun CoverScreen(
                             ) {
                                 Text(
                                     text = "WOMEN'S",
-                                    fontWeight = FontWeight.Bold
+                                    fontSize = 17.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = lightGray
                                 )
                                 Text(
                                     text = "COLLECTION",
-                                    fontSize = 9.sp
+                                    fontSize = 10.sp,
+                                    color = lightGray
                                 )
                             } //end column
                         } //end button
@@ -288,11 +279,12 @@ fun CoverScreen(
                             ) {
                                 Text(
                                     text = "WOMEN'S",
+                                    fontSize = 17.sp,
                                     fontWeight = FontWeight.Bold
                                 )
                                 Text(
                                     text = "COLLECTION",
-                                    fontSize = 9.sp
+                                    fontSize = 10.sp
                                 )
                             } //end column
                         } //end outlinedButton
@@ -318,7 +310,7 @@ fun CoverScreen(
                 ) {
                     Text(
                         text = "build my style profile ->",
-                        fontSize = 12.sp,
+                        fontSize = 17.sp,
                         fontWeight = FontWeight.Bold,
                         letterSpacing = 1.sp
                     )
@@ -326,9 +318,9 @@ fun CoverScreen(
                 Spacer(modifier = Modifier.height(20.dp))
                 Text(
                     text = "personal style isn't one size fit all.",
-                    fontSize = 9.sp,
-                    color = concrete,
-                    letterSpacing = 1.sp,
+                    fontSize = 13.sp,
+                    color = Color(0xFF66645F),
+                    letterSpacing = 0.5.sp,
                     textAlign = TextAlign.Center
                 )
             } //end column
