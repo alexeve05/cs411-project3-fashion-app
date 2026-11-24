@@ -107,6 +107,13 @@ fun AppNav(){
                 palette = palette,
                 onBack = {
                     navController.popBackStack()
+                },
+                onBackToCover = {
+                    navController.navigate(AppRoutes.COVER) {
+                        popUpTo(AppRoutes.COVER) {
+                            inclusive = false
+                        }
+                    }
                 }
             )
         }
