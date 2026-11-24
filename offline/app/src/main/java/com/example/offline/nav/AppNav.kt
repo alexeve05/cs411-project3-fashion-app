@@ -62,7 +62,6 @@ fun AppNav(){
             val collection = backStackEntry.arguments?.getString("collection") ?: "mens"
             StyleProfileScreen(
                 lookbookName = lookbookName,
-                collection = collection,
                 onContinue = {
                     silhouette, layering, palette ->
                     navController.navigate(AppRoutes.lookbook(lookbookName, collection, silhouette, layering, palette)

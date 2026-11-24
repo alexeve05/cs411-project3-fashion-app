@@ -34,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -60,7 +61,7 @@ fun CoverScreen(onContinue: (String, String) -> Unit) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .widthIn(max = 440.dp)
+                    .widthIn(max = 300.dp)
                     .verticalScroll(rememberScrollState())
                     .padding(horizontal = 28.dp, vertical = 32.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -113,7 +114,8 @@ fun CoverScreen(onContinue: (String, String) -> Unit) {
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Medium,
                     color = concrete,
-                    letterSpacing = 1.5.sp
+                    letterSpacing = 1.5.sp,
+                    fontStyle = FontStyle.Italic
                 )
                 Spacer(modifier = Modifier.height(28.dp))
                 Surface(
@@ -310,7 +312,7 @@ fun CoverScreen(onContinue: (String, String) -> Unit) {
                 ) {
                     Text(
                         text = "build my style profile ->",
-                        fontSize = 17.sp,
+                        fontSize = 25.sp,
                         fontWeight = FontWeight.Bold,
                         letterSpacing = 1.sp
                     )

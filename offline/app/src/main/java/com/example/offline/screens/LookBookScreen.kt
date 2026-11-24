@@ -27,7 +27,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -39,6 +38,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -99,8 +99,9 @@ fun LookBookScreen(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                TextButton(
-                    onClick = onBack
+                OutlinedButton(
+                    onClick = onBack,
+                    border = BorderStroke(1.dp, concrete)
                 ) {
                     Text(
                         text = "<- PROFILE",
@@ -108,9 +109,10 @@ fun LookBookScreen(
                         fontWeight = FontWeight.Bold,
                         color = burgundy
                     )
-                } //end textButton
-                TextButton(
-                    onClick = onBackToCover
+                } //end outlinedButton
+                OutlinedButton(
+                    onClick = onBackToCover,
+                    border = BorderStroke(1.dp, concrete)
                 ) {
                     Text(
                         text = "START OVER",
@@ -118,9 +120,9 @@ fun LookBookScreen(
                         fontWeight = FontWeight.Bold,
                         color = burgundy
                     )
-                } //end textButton
+                } //end outlinedButton
             } //end row
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(15.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -139,7 +141,7 @@ fun LookBookScreen(
                     fontWeight = FontWeight.Bold
                 )
             } //end row
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(15.dp))
             HorizontalDivider(Modifier, DividerDefaults.Thickness, color = concrete)
             Spacer(modifier = Modifier.height(15.dp))
             Text(
@@ -157,7 +159,7 @@ fun LookBookScreen(
                 fontSize = 35.sp,
                 fontWeight = FontWeight.Black,
                 color = ink,
-                letterSpacing = 3.sp
+                letterSpacing = 2.sp
             )
             Spacer(modifier = Modifier.height(6.dp))
             Text(
@@ -165,7 +167,8 @@ fun LookBookScreen(
                 modifier = Modifier.fillMaxWidth(),
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold,
-                color = concrete
+                color = concrete,
+                fontStyle = FontStyle.Italic
             )
             Spacer(modifier = Modifier.height(20.dp))
             Card(
@@ -181,10 +184,10 @@ fun LookBookScreen(
                 ) {
                     Text(
                         text = "YOUR STYLE PROFILE",
-                        fontSize = 15.sp,
+                        fontSize = 17.sp,
                         fontWeight = FontWeight.Bold,
                         color = burgundy,
-                        letterSpacing = 2.sp
+                        letterSpacing = 1.5.sp
                     )
                     Text(
                         text = "Silhouette: $silhouette / 5",
@@ -223,8 +226,9 @@ fun LookBookScreen(
                     Spacer(modifier = Modifier.height(6.dp))
                     Text(
                         text = "This changes how your outfits are ranked.",
-                        fontSize = 13.sp,
-                        color = concrete
+                        fontSize = 12.sp,
+                        color = concrete,
+                        fontStyle = FontStyle.Italic
                     )
                     Spacer(modifier = Modifier.height(14.dp))
                     Row(
@@ -241,7 +245,7 @@ fun LookBookScreen(
                                 } else {
                                     "MINIMAL ACCESSORIES"
                                 },
-                                fontSize = 12.sp,
+                                fontSize = 13.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = burgundy
                             )
@@ -284,7 +288,7 @@ fun LookBookScreen(
                     ) {
                         Text(
                             text = "APPLY PREFERENCE",
-                            fontSize = 13.sp,
+                            fontSize = 15.sp,
                             fontWeight = FontWeight.Bold
                         )
                     } //end button
@@ -299,13 +303,13 @@ fun LookBookScreen(
                 ) {
                     Text(
                         text = "YOUR MATCHES",
-                        fontSize = 14.sp,
+                        fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
                         color = ink
                     )
                     Text(
                         text = "${rankedLooks.firstOrNull()?.second ?: 0}% TOP MATCH",
-                        fontSize = 13.sp,
+                        fontSize = 15.sp,
                         fontWeight = FontWeight.Black,
                         color = burgundy
                     )
@@ -315,7 +319,8 @@ fun LookBookScreen(
                     text = "Matches are ranked by how closely each outfit fits your preferences.",
                     modifier = Modifier.fillMaxWidth(),
                     fontSize = 12.sp,
-                    color = concrete
+                    color = concrete,
+                    fontStyle = FontStyle.Italic
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 rankedLooks.forEachIndexed { index, result ->
@@ -341,7 +346,7 @@ fun LookBookScreen(
                 ) {
                     Text(
                         text = "CHANGE ACCESSORY PREFERENCE",
-                        fontSize = 12.sp,
+                        fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
                         color = ink
                     )
@@ -394,14 +399,14 @@ private fun LookCard(
             ) {
                 Text(
                     text = "0$rank - ${if (rank == 1) "TOP MATCH" else "LOOK $rank"}",
-                    fontSize = 11.sp,
+                    fontSize = 13.sp,
                     fontWeight = FontWeight.Bold,
                     color = concrete
                 )
                 Text(
                     text = "$score% MATCH",
                     fontSize = 13.sp,
-                    fontWeight = FontWeight.Black,
+                    fontWeight = FontWeight.Bold,
                     color = burgundy
                 )
             } //end row
@@ -427,14 +432,15 @@ private fun LookCard(
             Text(
                 text = look.description,
                 fontSize = 14.sp,
-                color = ink
+                color = ink,
+                fontStyle = FontStyle.Italic
             )
             Spacer(modifier = Modifier.height(14.dp))
             HorizontalDivider(Modifier, DividerDefaults.Thickness, color = concrete)
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(14.dp))
             Text(
                 text = "WHY THIS LOOK MATCHES",
-                fontSize = 10.sp,
+                fontSize = 12.sp,
                 fontWeight = FontWeight.Bold,
                 color = concrete,
                 letterSpacing = 1.sp
@@ -482,7 +488,7 @@ private fun MatchAttribute(
     ) {
         Text(
             text = label,
-            fontSize = 11.sp,
+            fontSize = 13.sp,
             color = if (matches) burgundy else concrete,
             fontWeight = if (matches) {
                 FontWeight.Bold
@@ -496,11 +502,7 @@ private fun MatchAttribute(
             }
         )
         Text(
-            text = if (matches) {
-                "$value "
-            } else {
-                value
-            },
+            text = if (matches) "$value" else value,
             fontSize = 12.sp,
             color = if (matches) burgundy else ink,
             fontWeight = if (matches) {
