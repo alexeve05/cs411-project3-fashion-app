@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
@@ -21,6 +22,7 @@ import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -31,8 +33,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -61,8 +66,7 @@ fun StyleProfileScreen(
     val paletteOptions = listOf(
         "neutrals",
         "earth tones",
-        "cool tones",
-        "bold colors"
+        "cool tones"
     )
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -75,33 +79,40 @@ fun StyleProfileScreen(
                 .padding(horizontal = 24.dp, vertical = 28.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Spacer(modifier = Modifier.height(15.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
+                TextButton(
+                    onClick = onBack,
+                    colors = ButtonDefaults.textButtonColors(contentColor = burgundy)
+                ) {
+                    Text(
+                        text = "<- BACK",
+                        fontSize = 17.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                } //end textButton
                 Text(
                     text = "OFFLINE. / STYLE PROFILE",
-                    fontSize = 10.sp,
+                    fontSize = 17.sp,
                     fontWeight = FontWeight.Bold,
                     color = ink,
-                    letterSpacing = 1.sp
-                )
-                Text(
-                    text = "02 - 03",
-                    fontSize = 10.sp,
-                    color = concrete
+                    letterSpacing = 0.5.sp
                 )
             } //end row
-            Spacer(modifier = Modifier.height(28.dp))
+            Spacer(modifier = Modifier.height(12.dp))
             Text(
-                text = "define your",
+                text = "build your",
                 modifier = Modifier.fillMaxWidth(),
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Black,
                 color = ink
             )
             Text(
-                text = "silhouette.",
+                text = "style profile.",
                 modifier = Modifier.fillMaxWidth(),
                 fontSize = 36.sp,
                 fontWeight = FontWeight.Light,
@@ -111,29 +122,34 @@ fun StyleProfileScreen(
             Text(
                 text = "let's get a feel for your personal style, $lookbookName.",
                 modifier = Modifier.fillMaxWidth(),
-                fontSize = 13.sp,
+                fontSize = 14.sp,
                 color = concrete
             )
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(20.dp))
             SectionHeader("01 / FIT PREFERENCE")
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = "How do you like your clothes to fit?",
                 modifier = Modifier.fillMaxWidth(),
                 fontSize = 14.sp,
                 color = ink
             )
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(4.dp))
             silhouetteOptions.forEach { (value, label) ->
                 Row(
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp),
-                    horizontalArrangement = Arrangement.Center
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .selectable(
+                            selected = selectedSilhouette == value,
+                            onClick = { selectedSilhouette = value },
+                            role = Role.RadioButton
+                        )
+                        .padding(vertical = 4.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     RadioButton(
                         selected = selectedSilhouette == value,
-                        onClick = {
-                            selectedSilhouette = value
-                        }, //end onClick
+                        onClick =  null,
                         colors = RadioButtonDefaults.colors(
                             selectedColor = burgundy,
                             unselectedColor = concrete
@@ -142,7 +158,13 @@ fun StyleProfileScreen(
                     Text(
                         text = label,
                         fontSize = 14.sp,
-                        color = ink
+                        color = ink,
+                        modifier = Modifier.weight(1f),
+                        fontWeight = if (selectedSilhouette == value){
+                            FontWeight.Bold
+                        } else {
+                            FontWeight.Normal
+                        }
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     Text(
@@ -154,35 +176,38 @@ fun StyleProfileScreen(
             } //end silhouetteOptions
             Spacer(modifier = Modifier.height(20.dp))
             SectionHeader("02 / LAYERING")
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = "How much layering do you prefer?",
                 modifier = Modifier.fillMaxWidth(),
                 fontSize = 14.sp,
                 color = ink
             )
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(14.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = "minimal",
-                    fontSize = 10.sp,
+                    fontSize = 13.sp,
                     color = concrete,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    textDecoration = TextDecoration.Underline
                 )
                 Text(
                     text = "${selectedLayering.toInt()} / 5",
-                    fontSize = 12.sp,
+                    fontSize = 14.sp,
                     color = burgundy,
                     fontWeight = FontWeight.Bold
                 )
                 Text(
                     text = "heavy",
-                    fontSize = 10.sp,
+                    fontSize = 13.sp,
                     color = concrete,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    textDecoration = TextDecoration.Underline
                 )
             } //end row
             Slider(
@@ -196,9 +221,9 @@ fun StyleProfileScreen(
                     inactiveTrackColor = concrete
                 )
             )
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(24.dp))
             SectionHeader("03 / COLOR PALETTE")
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = "Which colors do you gravitate toward?",
                 modifier = Modifier.fillMaxWidth(),
@@ -248,9 +273,12 @@ fun StyleProfileScreen(
                             } //end outlinedButton
                         } //end else
                     } //end rowOptions
+                    if (rowOptions.size == 1){
+                        Spacer(modifier = Modifier.weight(1f))
+                    } //end if
                 } //end row
             } //end paletteOptions
-            Spacer(modifier = Modifier.height(28.dp))
+            Spacer(modifier = Modifier.height(20.dp))
             Button(
                 onClick = {
                     onContinue(
@@ -267,29 +295,16 @@ fun StyleProfileScreen(
                 )
             ) {
                 Text(
-                    text = "generate my lookbook ->",
-                    fontSize = 12.sp,
+                    text = "generate my edit ->",
+                    fontSize = 25.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 1.sp
                 )
             } //end button
-            Spacer(modifier = Modifier.height(12.dp))
-            OutlinedButton(
-                onClick = onBack,
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(6.dp),
-                border = BorderStroke(1.dp, concrete)
-            ) {
-                Text(
-                    text = "<- back to cover",
-                    color = ink,
-                    fontSize = 11.sp
-                )
-            } //end outlinedButton
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(6.dp))
             Text(
                 text = "your style. your rules.",
-                fontSize = 9.sp,
+                fontSize = 11.sp,
                 color = concrete,
                 letterSpacing = 1.sp,
                 textAlign = TextAlign.Center
@@ -303,9 +318,9 @@ private fun SectionHeader(title: String){
     Text(
         text = title,
         modifier = Modifier.fillMaxWidth(),
-        fontSize = 11.sp,
+        fontSize = 15.sp,
         fontWeight = FontWeight.Bold,
         color = burgundy,
-        letterSpacing = 1.sp
+        letterSpacing = 1.5.sp
     )
 } //end sectionHeader
